@@ -2,6 +2,7 @@ package net.careerboard.models;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,12 +19,20 @@ public class User {
     @Id
     Long userId;
     @Column(unique = true, nullable = false, length = 30, name = "username")
+    @NotBlank(message = "Username is required and cannot be empty")
     @Size(min = 4, max = 30)
     String username;
+
+    @Column(nullable = false, name = "password")
+    @NotBlank(message = "Password is required and cannot be empty")
+    String password;
+
     @Column(name = "first_name", nullable = false)
+    @NotBlank(message = "First name is required and cannot be empty")
     @Size(max = 30)
     String firstName;
     @Column(name = "last_name", nullable = false)
+    @NotBlank(message = "Last name is required and cannot be empty")
     @Size(max = 30)
     String lastName;
     @Column(nullable = false, updatable = false, name = "created_at")
